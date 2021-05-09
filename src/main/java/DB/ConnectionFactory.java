@@ -1,20 +1,18 @@
-package sample.DB;
+package DB;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 
 public class ConnectionFactory {
 
-    private static final ConnectionFactory instance = new ConnectionFactory();
-    public static final String URL = "jdbc:sqlite:myDB.sqlite";
-    public static final String DRIVER_CLASS = "org.sqlite.JDBC";
+    private static ConnectionFactory instance = new ConnectionFactory();
+    public static String URL = "jdbc:sqlite:myDB.sqlite";
+    public static String DRIVER_CLASS = "org.sqlite.JDBC";
 
     private ConnectionFactory(){
-        try {
-            Class.forName(DRIVER_CLASS);
-        }
-        catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+
     }
     public Connection createConnection()
     {
@@ -27,7 +25,7 @@ public class ConnectionFactory {
         }
         return connection;
     }
-    public static Connection getConnection(){
+    public static Connection  getConnection(){
         return instance.createConnection();
     }
 ;}

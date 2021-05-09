@@ -1,13 +1,14 @@
-package sample.DB;
+package DB;
 
-import sample.Animals.Animal;
-import sample.Unils.Utils;
+import Animals.Animal;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 public class AnimalJDBCDao implements IDao<Animal> {
     Connection connection;
@@ -65,10 +66,11 @@ public class AnimalJDBCDao implements IDao<Animal> {
             Statement statement = connection.createStatement();
             result = statement.execute(
                     "INSERT INTO Animal(name, behaviorId, cost, date) " +
-                            "VALUES('" + animal.getName() + "'," + animal.getBehavior() + "," + animal.getCost() + "," + animal.getDate().getTime() + ");");
+                            "VALUES('" + animal.getName() + "'," + animal.getBehaviorId() + "," + animal.getCost() + "," + animal.getDate().getTime() + ");");
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+        System.out.println("Animal inserted");
         return result;
     }
 
@@ -97,6 +99,7 @@ public class AnimalJDBCDao implements IDao<Animal> {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+        System.out.println("Animal deleted");
         return result;
     }
 

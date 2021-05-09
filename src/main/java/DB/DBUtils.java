@@ -1,12 +1,14 @@
-package sample.DB;
+package DB;
 
-import sample.Animals.Animal;
-import sample.Unils.Utils;
+import Animals.Animal;
+import Behaviors.Behaviors;
+import Unils.Utils;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Date;
 import java.util.Optional;
 
 public class DBUtils {
@@ -66,17 +68,16 @@ public class DBUtils {
     public static void executeQuery(Statement stmt, String query) throws SQLException {
         stmt.executeUpdate(query);
     }
-
     public static Optional<Animal> getAnimal(ResultSet rs) throws SQLException {
 
         Animal animal = new Animal();
 
         animal.setId(rs.getInt("id"));
-        animal.setBehavior(rs.getInt("behaviorId"));
+        animal.setBehaviorId(rs.getInt("behaviorId"));
         animal.setName(rs.getString("name"));
         animal.setCost(rs.getInt("cost"));
-        animal.setDate(rs.getLong("date"));
-
+        animal.setDate(new Date(rs.getLong("date")));
+        animal.setBehavior(Utils.fromIdToAnimalBehavior(animal.getBehaviorId()));
         return Optional.of(animal);
     }
 }

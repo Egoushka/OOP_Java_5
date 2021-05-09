@@ -1,4 +1,4 @@
-package sample.DB;
+package DB;
 
 import java.util.List;
 import java.util.Optional;
